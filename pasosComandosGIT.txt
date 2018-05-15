@@ -1,0 +1,153 @@
+Tu identidad
+Lo primero que deberías hacer cuando instalas Git es establecer tu nombre de usuario y dirección de correo electrónico. Esto es importante porque las confirmaciones de cambios (commits) en Git usan esta información, y es introducida de manera inmutable en los commits que envías:
+
+$ git config --global user.name "John Doe"
+$ git config --global user.email johndoe@example.com
+
+De nuevo, sólo necesitas hacer esto una vez si especificas la opción --global, ya que Git siempre usará esta información para todo lo que hagas en ese sistema. Si quieres sobrescribir esta información con otro nombre o dirección de correo para proyectos específicos, puedes ejecutar el comando sin la opción --global cuando estés en ese proyecto.
+//////////////////////////////
+
+
+//creo carpeta "ClaseGIT"
+mkdir ClaseGIT
+
+cd CLaseGIT
+
+//crear repositorio con subcomando 'INIT'. El comando principal es GIT
+git init
+//se crea repo vacio en la carpeta se crea '.git' el cual esta oculto
+
+//estado de como se encuentra nuestro repo
+git status
+
+//commit = cualquier operación que hagamos en nuestro repo
+
+--aca hago un HTML-- y lo dejo en la carpeta ClaseGIT
+<html>
+<head>
+<title>Bienvenido a mi proyecto</title>
+</head>
+<body>
+<h1>Este es mi proyecto</h1>
+</body>
+</html>
+
+//registro mi cambio en el repositorio, o sea meto el archivo al GIT
+git add miPrimeraWeb.html
+
+//chequeo el estado
+git status
+
+//hago un commit pero me aparece "untracked" entonces no se registro el cambio no sabe GIT que fue lo que hice entonces...
+git commit
+
+//hago un add para que se agregue y se vaya lo de "untracked"
+git add miPrimeraWeb.html
+
+//commit2
+git commit
+
+//escribimos en la zona de texto que nos permite poner el TIPO de cambio que realizamos, explicamos que hicimos y con enter se guarda así no nos perdemos cuando vemos el historial
+
+//para salir de la ventana 'shift+:' escribimos 'wq', enter y listo
+
+//me abre LOG de commits
+git log
+
+//creamos un TXT
+touch readme.txt
+
+//COMMIT V2.0 --> usar! mucho mejor!
+git commit -m "texto identificador en PRESENTE"
+
+
+//Connect Your Local Repository To Your GitHub Repository
+git remote add origin https://github.com/username/myproject.git
+
+//ejemplo
+git remote add origin https://github.com/IngArielS/
+
+//Git now knows there’s a remote repository and it’s where you want your local repository changes to go. To confirm, type this to check:
+git remote -v
+
+//PUSH
+1º Debo crear un repositorio desde la página de GIT en el símbolo "+"
+
+2º git push https://github.com/IngArielS/ClaseGIT.git
+
+listo!
+
+//arreglar texto asociado a un commit que NO pushee
+git commit --amend
+
+//PULL
+1º Tengo que tener un repo vacio al que NO le haya hecho ningún pull o commit o nada sino me va a tirar error y necesito usar "--allow-unrelated-histories"
+
+2º git pull https://github.com/IngArielS/ClaseGIT.git
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+BRANCHES
+
+In your github fork, you need to keep your master branch clean, by clean I mean without any changes, like that you can create at any time a branch from your master. Each time that you want to commit a bug or a feature, you need to create a branch for it, which will be a copy of your master branch.
+
+En tu GITHUB necesitas mantener tu rama "master" limpia, esto quiere decir que no posea cambios que no estén aprobados se podría decir, o testeados, etc. Podes crear una "branch" cada vez que quieras commitear un bug o una funcionalidad nueva. Esta "branch" sera una copia del master.
+
+//1º PULL...
+Before creating a new branch, pull the changes from upstream. Your master needs to be up to date.
+
+//creo una rama en mi pc local y cambio a esa rama (cambia entre paréntesis el nombre de la rama establecido)
+git checkout -b [name_of_your_new_branch]
+
+//cambio la rama donde voy a trabajar
+git checkout [name_of_your_new_branch]
+
+//pusheo la rama a github
+git push origin [name_of_your_new_branch]
+
+//para ver todas las ramas creadas:
+git branch
+
+//crear una nueva ubicación remota para tu rama
+git remote add [name_of_your_remote]
+
+//pushear cambios desde tu commit a tu rama
+git push [name_of_your_new_remote] [name_of_your_branch]
+
+//actualiza tu branch cuando la branch original desde el repositorio oficial fue modificada
+git fetch [name_of_your_remote]
+
+//luego tenes que unir los cambios, si tu rama esta derivada de la rama /develop entonces tenes que hacer
+git merge [name_of_your_remote]/develop
+
+//PARA BORRAR UNA BRANCH de tus archivos locales (el comando -d se utiliza para que se borre forzosamente)
+git branch -d [name_of_your_new_branch]
+
+//PARA BORRAR LA BRANCH EN GITHUB
+git push origin :[name_of_your_new_branch]
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+//DESHACER COMMIT not pushed
+$ git commit -m "Something terribly misguided"              (1)
+$ git reset HEAD~                                           (2)
+<< edit files as necessary >>                               (3)
+$ git add ...                                               (4)
+$ git commit -c ORIG_HEAD  
+
+1. This is what you want to undo
+
+2. This leaves your working tree (the state of your files on disk) unchanged but undoes the commit and leaves the changes you committed unstaged (so they'll appear as "Changes not staged for commit" in git status, and you'll need to add them again before committing). If you only want to add more changes to the previous commit, or change the commit message1, you could use git reset --soft HEAD~ instead, which is like git reset HEAD~ (where HEAD~ is the same as HEAD~1) but leaves your existing changes staged.
+
+3. Make corrections to working tree files.
+
+4. git add anything that you want to include in your new commit.
+
+5. Commit the changes, reusing the old commit message. reset copied the old head to .git/ORIG_HEAD; commit with -c ORIG_HEAD will open an editor, which initially contains the log message from the old commit and allows you to edit it. If you do not need to edit the message, you could use the -C option.
+
+
+//REVERTIR UN COMMIT PUSHED
+git rever <commit_hash>
+//solo revierte un commit específico
+https://git-scm.com/docs/git-revert
