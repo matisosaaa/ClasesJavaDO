@@ -1,0 +1,10 @@
+
+public abstract class Mamifero {
+
+	private int CantidadDePatas;
+	
+	public abstract String Hablar();
+	public abstract String Caminar();
+	public abstract String Respirar();
+	
+}

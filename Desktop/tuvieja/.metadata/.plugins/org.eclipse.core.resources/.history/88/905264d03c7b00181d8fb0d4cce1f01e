@@ -1,0 +1,27 @@
+
+public class Perro extends Mamifero{
+
+	public Perro(int cantidadDePatas) {
+		super(cantidadDePatas);
+		
+	}
+
+	@Override
+	public String Hablar() {
+		
+		return null;
+	}
+
+	@Override
+	public String Caminar() {
+		
+		return null;
+	}
+
+	@Override
+	public String Respirar() {
+		
+		return null;
+	}
+
+}
